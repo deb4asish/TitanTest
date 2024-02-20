@@ -2,7 +2,6 @@ package com.library.management.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,7 @@ import com.library.management.dao.BookDao;
 import com.library.management.dao.BookGenreDao;
 import com.library.management.dto.BookGenreDto;
 import com.library.management.service.impl.GenreServiceImpl;
+
 /**
  * @author Debasish Padhy
  *
@@ -25,26 +25,26 @@ import com.library.management.service.impl.GenreServiceImpl;
 @RequestMapping("/api/genres")
 public class GenreController {
 
-    
-    @Autowired
-    private GenreServiceImpl genService;
-    
-    @GetMapping("/getAllGenres")
-    public ResponseEntity<List<BookGenreDao>> getAllGenres() {
-        List<BookGenreDao> genres = genService.getAllGenres();
-        return new ResponseEntity<>(genres, HttpStatus.OK);
-    }
-    
-    @GetMapping("/get/{genreId}")
-    public ResponseEntity<List<BookDao>> getBooksByGenre(@PathVariable Long genreId) {
-        List<BookDao> books = genService.getBooksByGenre(genreId);
-        return ResponseEntity.ok(books);
-    }
-    
-    @PostMapping("/add")
-    public ResponseEntity<BookGenreDto> addGenres(@RequestBody BookGenreDto book){
-    	
-    	BookGenreDto bookgenrDao =  genService.addGenre(book);
-    	return ResponseEntity.ok(bookgenrDao);
-    }
+	@Autowired
+	private GenreServiceImpl genService;
+
+	@PostMapping("/add")
+	public ResponseEntity<BookGenreDto> addGenres(@RequestBody BookGenreDto book) {
+
+		BookGenreDto bookgenrDao = genService.addGenre(book);
+		return ResponseEntity.ok(bookgenrDao);
+	}
+
+	@GetMapping("/getAllGenres")
+	public ResponseEntity<List<BookGenreDao>> getAllGenres() {
+		List<BookGenreDao> genres = genService.getAllGenres();
+		return new ResponseEntity<>(genres, HttpStatus.OK);
+	}
+
+	@GetMapping("/get/books/{genreId}")
+	public ResponseEntity<List<BookDao>> getBooksByGenre(@PathVariable Long genreId) {
+		List<BookDao> books = genService.getBooksByGenre(genreId);
+		return ResponseEntity.ok(books);
+	}
+
 }

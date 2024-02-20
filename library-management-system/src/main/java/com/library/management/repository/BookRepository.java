@@ -11,7 +11,6 @@ import com.library.management.dao.BookDao;
  */
 public interface BookRepository extends JpaRepository<BookDao, Long> {
 
-	//@Query(value = "Select * from book_genre where book_genre.id = ?1",nativeQuery = true)
 	List<BookDao> findByGenreId(Long genreId);
 }
 
